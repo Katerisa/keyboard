@@ -8,26 +8,27 @@ const keyboard = [
 ];
 const countOfRow = keyboard.length;
 const countOfColumn = keyboard[0].length;
-var currentChar = [0, 0];
+let currentChar;
 var tvRemote = function(words) {
-    var result = 0;
-    var caps = false;
-    for (var i = 0; i < words.length; i++){
-        var nextChar = words[i];
-        if (nextChar === nextChar.toUpperCase() !== caps){
+    let result = 0;
+    let caps = false;
+    currentChar = [0, 0];
+    for (let i = 0; i < words.length; i++){
+        let nextChar = words[i];
+        if (nextChar === nextChar.toUpperCase() !==  caps){
+            console.log("Im here");
             result += getPath(currentChar, 'caps');
             caps = !caps;
-            currentChar = [5, 0];
         }
         result += getPath(currentChar, nextChar);
     }
     return result;
 };
 function getPath(start, target) {
-    var path = 0;
-    var newPosition = [];
-    for (var row = 0; row < countOfRow; row++) {
-        var column = keyboard[row].indexOf(target.toLowerCase());
+    let path = 0;
+    let newPosition = [];
+    for (let row = 0; row < countOfRow; row++) {
+        let column = keyboard[row].indexOf(target.toLowerCase());
         if (column !== -1) {
             newPosition = [row, column];
             break;
@@ -35,9 +36,11 @@ function getPath(start, target) {
     }
     path += Math.min(Math.abs(start[0] - newPosition[0]),
         (start[0] > newPosition[0]) ? countOfRow - start[0] + newPosition[0] : start[0] + countOfRow - newPosition[0]);
-    
+
     path += Math.min(Math.abs(start[1] - newPosition[1]),
         (start[1] > newPosition[1]) ? countOfColumn - start[1] + newPosition[1] : start[1] + countOfColumn - newPosition[1]);
     currentChar = newPosition.slice();
+    console.log(path + 1);
     return path + 1;
 }
+tvRemote("0hrp");
